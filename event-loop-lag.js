@@ -18,7 +18,7 @@ module.exports = exports = function eventLoopLag(ms){
   var delay = 0;
 
   var timeout = setTimeout(check, ms);
-  timeout.unref();
+  if (timeout.unref) { timeout.unref(); };
 
   function check(){
     // workaround for https://github.com/joyent/node/issues/8364
@@ -37,7 +37,7 @@ module.exports = exports = function eventLoopLag(ms){
     start = t;
 
     timeout = setTimeout(check, ms)
-    timeout.unref();
+    if (timeout.unref) { timeout.unref(); };
   }
 
   // return the loop delay in milliseconds
